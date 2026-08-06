@@ -1,0 +1,19 @@
+﻿{
+    "RunId":  "20260805-055822",
+    "CreatedAt":  "2026-08-05 05:58:22",
+    "Computer":  "c261-8-1",
+    "OlderThanDays":  0,
+    "Targets":  "C:\\Users\\labuser\\AppData\\Local\\Temp\\2",
+    "Operations":  [
+                       {
+                           "OriginalPath":  "C:\\Users\\labuser\\AppData\\Local\\Temp\\2\\gen_py\\3.9\\dicts.dat",
+                           "BackupPath":  "C:\\Users\\labuser\\Documents\\training\\day3\\rollback-store\\20260805-055822\\files\\C\\Users\\labuser\\AppData\\Local\\Temp\\2\\gen_py\\3.9\\dicts.dat",
+                           "MovedAt":  "2026-08-05 05:58:22"
+                       },
+                       {
+                           "OriginalPath":  "C:\\Users\\labuser\\AppData\\Local\\Temp\\2\\gen_py\\3.9\\__init__.py",
+                           "BackupPath":  "C:\\Users\\labuser\\Documents\\training\\day3\\rollback-store\\20260805-055822\\files\\C\\Users\\labuser\\AppData\\Local\\Temp\\2\\gen_py\\3.9\\__init__.py",
+                           "MovedAt":  "2026-08-05 05:58:22"
+                       }
+                   ]
+}

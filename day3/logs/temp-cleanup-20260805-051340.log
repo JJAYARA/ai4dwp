@@ -1,0 +1,9 @@
+﻿[2026-08-05 05:13:40] [INFO] Starting script on computer 'c261-8-1'.
+[2026-08-05 05:13:40] [INFO] Mode: DryRun=True; Rollback=False; OlderThanDays=0
+[2026-08-05 05:13:40] [INFO] Target path enabled: C:\Users\labuser\AppData\Local\Temp\2
+[2026-08-05 05:13:40] [INFO] File age cutoff (LastWriteTime <=): 08/05/2026 05:13:40
+[2026-08-05 05:13:40] [INFO] Scanning target: C:\Users\labuser\AppData\Local\Temp\2
+[2026-08-05 05:13:40] [WARN] Locked/in-use file skipped: C:\Users\labuser\AppData\Local\Temp\2\959145fb-2bf7-4dbf-a999-dbadbac93530.tmp
+[2026-08-05 05:13:40] [INFO] [DryRun] Would remove 'C:\Users\labuser\AppData\Local\Temp\2\gen_py\3.9\dicts.dat'
+[2026-08-05 05:13:40] [INFO] [DryRun] Would remove 'C:\Users\labuser\AppData\Local\Temp\2\gen_py\3.9\__init__.py'
+[2026-08-05 05:13:40] [INFO] Cleanup run complete.

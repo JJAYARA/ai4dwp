@@ -1,0 +1,6 @@
+﻿[2026-08-05 06:16:39] [INFO] Starting event log archive/cleanup script.
+[2026-08-05 06:16:39] [INFO] Computer: c261-8-1
+[2026-08-05 06:16:39] [INFO] Mode: DryRun=True; Rollback=False; OlderThanDays=3; Cutoff=8/2/2026 6:16:39 AM
+[2026-08-05 06:16:39] [INFO] [DryRun] Log 'Application' would delete 8 records older than 8/2/2026 6:16:39 AM.
+[2026-08-05 06:16:40] [INFO] [DryRun] Log 'System' would delete 66 records older than 8/2/2026 6:16:39 AM.
+[2026-08-05 06:16:40] [INFO] Cleanup mode complete.

@@ -1,0 +1,8 @@
+﻿[2026-08-05 05:59:23] [INFO] Starting script on computer 'c261-8-1'.
+[2026-08-05 05:59:23] [INFO] Mode: DryRun=False; Rollback=False; OlderThanDays=0
+[2026-08-05 05:59:23] [INFO] Target path enabled: C:\Users\labuser\AppData\Local\Temp\2
+[2026-08-05 05:59:23] [INFO] File age cutoff (LastWriteTime <=): 08/05/2026 05:59:23
+[2026-08-05 05:59:23] [INFO] Scanning target: C:\Users\labuser\AppData\Local\Temp\2
+[2026-08-05 05:59:23] [WARN] Locked/in-use file skipped: C:\Users\labuser\AppData\Local\Temp\2\959145fb-2bf7-4dbf-a999-dbadbac93530.tmp
+[2026-08-05 05:59:23] [INFO] No files moved. Rollback manifest not created.
+[2026-08-05 05:59:23] [INFO] Cleanup run complete.
