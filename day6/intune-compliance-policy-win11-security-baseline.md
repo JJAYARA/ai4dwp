@@ -1,6 +1,6 @@
 # Intune Compliance Policy – Windows 11 Security Baseline
 **Author:** DWP Endpoint Engineer  
-**Date:** 2026-08-10  
+**Date:** 2026-08-11  
 **Scope:** Windows 11 managed devices enrolled in Microsoft Intune  
 **Grace Period:** 7 days applied to all settings  
 
@@ -10,8 +10,13 @@
 
 This document translates the DWP Windows 11 security baseline requirements into Intune Compliance Policy settings. Each entry provides the exact setting name as it appears in the Intune portal, the required value, the enforcement effect, known false-positive risks, and recommendations to reduce noise without weakening security posture.
 
-> **Policy path (Intune portal):**  
-> Devices → Compliance → Policies → Create Policy → Platform: Windows 10 and later
+> **Policy creation path (Intune portal):**  
+> Home → Devices → Compliance → Policies → Create Policy  
+> - Platform: **Windows 10 and later**  
+> - Profile type: **Windows 10/11 compliance policy**  
+>
+> **Wizard tabs:** ① Basics → ② Compliance settings → ③ Actions for noncompliance → ④ Assignments → ⑤ Review + create  
+> All security settings below are configured on **Tab ② – Compliance settings**.
 
 ---
 
@@ -20,7 +25,7 @@ This document translates the DWP Windows 11 security baseline requirements into 
 | Field | Detail |
 |---|---|
 | **Setting name** | Require BitLocker |
-| **Intune UI path** | Devices → Compliance → Policies → [Policy] → Device Health → Require BitLocker |
+| **Intune UI path** | Tab ② Compliance settings → **Device Health** → Require BitLocker |
 | **Value** | Require |
 | **Grace period** | 7 days |
 
@@ -42,7 +47,7 @@ Apply the 7-day grace period to absorb attestation sync delays post-enrolment. E
 | Field | Detail |
 |---|---|
 | **Setting name** | Require Secure Boot to be enabled on the device |
-| **Intune UI path** | Devices → Compliance → Policies → [Policy] → Device Health → Require Secure Boot to be enabled on the device |
+| **Intune UI path** | Tab ② Compliance settings → **Device Health** → Require Secure Boot to be enabled on the device |
 | **Value** | Require |
 | **Grace period** | 7 days |
 
@@ -64,7 +69,7 @@ Confirm all estate hardware was provisioned with UEFI + GPT as part of the Windo
 | Field | Detail |
 |---|---|
 | **Setting name** | Minimum OS version |
-| **Intune UI path** | Devices → Compliance → Policies → [Policy] → Operating System Version → Minimum OS version |
+| **Intune UI path** | Tab ② Compliance settings → **Device Properties** → Operating System Version → Minimum OS version |
 | **Value** | `10.0.22621.2861` |
 | **Grace period** | 7 days |
 
@@ -88,7 +93,7 @@ Align WUfB deferral ring settings so that the maximum deferral period does not c
 | Field | Detail |
 |---|---|
 | **Setting name** | Require real-time protection |
-| **Intune UI path** | Devices → Compliance → Policies → [Policy] → Microsoft Defender Antivirus → Require real-time protection |
+| **Intune UI path** | Tab ② Compliance settings → **Microsoft Defender Antivirus** → Require real-time protection |
 | **Value** | Require |
 | **Grace period** | 7 days |
 
@@ -110,7 +115,7 @@ If the DWP estate uses a third-party AV alongside Defender, evaluate whether to 
 | Field | Detail |
 |---|---|
 | **Setting name** | Microsoft Defender Firewall |
-| **Intune UI path** | Devices → Compliance → Policies → [Policy] → Microsoft Defender Firewall → Microsoft Defender Firewall |
+| **Intune UI path** | Tab ② Compliance settings → **Microsoft Defender Firewall** → Microsoft Defender Firewall |
 | **Value** | Require |
 | **Grace period** | 7 days |
 
@@ -132,7 +137,7 @@ Audit and remove any GPO settings that disable Windows Firewall on the Domain pr
 | Field | Detail |
 |---|---|
 | **Setting name** | Require a password to unlock mobile devices |
-| **Intune UI path** | Devices → Compliance → Policies → [Policy] → System Security → Require a password to unlock mobile devices |
+| **Intune UI path** | Tab ② Compliance settings → **System Security** → Require a password to unlock mobile devices |
 | **Value** | Require |
 | **Grace period** | 7 days |
 
@@ -165,7 +170,7 @@ Create a separate compliance policy for kiosk/shared devices with appropriate ex
 | Field | Detail |
 |---|---|
 | **Setting name** | Device Threat Level |
-| **Intune UI path** | Devices → Compliance → Policies → [Policy] → Microsoft Defender for Endpoint → Require the device to be at or under the machine risk score |
+| **Intune UI path** | Tab ② Compliance settings → **Microsoft Defender for Endpoint** → Require the device to be at or under the machine risk score |
 | **Value** | Clear (or Low, if Clear generates excessive noise) |
 | **Grace period** | 7 days |
 
@@ -175,7 +180,7 @@ Create a separate compliance policy for kiosk/shared devices with appropriate ex
 
 | Setting name | Intune UI path | Value |
 |---|---|---|
-| Code integrity | Devices → Compliance → [Policy] → Device Health → Require code integrity | Require |
+| Code integrity | Tab ② Compliance settings → **Device Health** → Require code integrity | Require |
 
 **Effect (Device Threat Level):**  
 Intune queries the MDE risk score for the device. A score above "Clear" indicates Defender has detected active threats, suspicious behaviour, or system integrity issues — the functional equivalent of a compromised/rooted state on Windows. Devices above the threshold are blocked from compliant-device conditional access policies.
@@ -207,18 +212,20 @@ Start with `Low` rather than `Clear` for the MDE risk score if initial rollout g
 | 6 – PIN/Password | Require a password to unlock mobile devices | 7 days |
 | 7 – Not compromised | Device Threat Level / Code Integrity | 7 days |
 
-> Configure the grace period in Intune at: Compliance Policy → Actions for noncompliance → Mark device noncompliant → Schedule (days after noncompliance): **7**
+> Configure the grace period in Intune at: **Tab ③ – Actions for noncompliance** → Mark device noncompliant → Schedule (days after noncompliance): **7**
 
 ---
 
 ## Actions for Non-Compliance (Recommended)
 
-| Day | Action |
-|---|---|
-| 0 | Mark device as non-compliant (recorded, no user impact) |
-| 1 | Send email notification to user |
-| 7 | Enforce non-compliance (block conditional access) |
-| 30 | Retire device (optional — requires change approval) |
+> Configure on **Tab ③ – Actions for noncompliance**
+
+| Day | Action | Intune action type |
+|---|---|---|
+| 0 | Mark device as non-compliant (recorded, no user impact) | Mark device noncompliant |
+| 1 | Send email notification to user | Send email to end user |
+| 7 | Enforce non-compliance (block conditional access) | Mark device noncompliant (grace period expires) |
+| 30 | Retire device (optional — requires change approval) | Retire the noncompliant device |
 
 ---
 
@@ -229,6 +236,76 @@ Start with `Low` rather than `Clear` for the MDE risk score if initial rollout g
 | 3 | Minimum OS version field label | Microsoft has periodically renamed/restructured OS version fields | Verify the 5-part build string format (`10.0.xxxxx.xxxx`) is accepted in your tenant before publishing |
 | 6 | Password section label | "Require a password to unlock mobile devices" is a legacy MDM label; may be relabelled in newer portal versions | Check under System Security in the Windows compliance blade |
 | 7 | MDE risk score path | MDE connector section may not appear if the connector is inactive | Enable the Intune–MDE connector before configuring; path may differ in GovCloud/DWP tenants |
+
+---
+
+## Post-Assignment Validation
+
+### Where to Check Compliance Status in the Intune Admin Center
+
+**Per-device view (single device check):**
+> Home → Devices → All devices → [search device name] → **Compliance**
+
+This lists every compliance policy assigned to the device. Click the policy name to open the per-setting breakdown — this shows exactly which setting is failing, not just overall status.
+
+**Per-policy view (all devices against this policy):**
+> Home → Devices → Compliance → Policies → [policy name] → **Device status**
+
+Filter by Compliant / Not compliant / In grace period. Use **Export** (CSV) for fleet-wide analysis or to share with the project team.
+
+---
+
+### Compliance States and Conditional Access Impact
+
+| Status | Meaning | Conditional Access impact |
+|---|---|---|
+| **Compliant** | All settings pass; HAS attestation reports are current | Full access to CA-protected resources (Exchange Online, SharePoint, Teams) |
+| **In grace period** | One or more settings failing but the 7-day grace clock has not expired | **Access continues.** Device is flagged in reporting but CA does not block yet — this is the intended buffer for reboot-pending or attestation-lagging devices |
+| **Not compliant** | One or more settings fail AND grace period has expired | **Access blocked** to all CA policies scoped to "Require compliant device". User sees an access denied page with a remediation link |
+
+> "In grace period" and "Not compliant" both register as failures in Intune compliance reports — the distinction is only whether CA enforcement has activated.
+
+---
+
+### BitLocker False Positive — Three Most Common Causes and Fastest Checks
+
+Use these when a device reports non-compliant on **Require BitLocker** despite BitLocker visibly being enabled.
+
+#### Cause 1 — TPM Attestation Report Has Not Yet Synced to HAS
+
+The device has BitLocker active but the Windows Health Attestation Service has not returned a fresh report to Intune since enrolment or reimage. Common in the first 30–60 minutes after a device syncs.
+
+**Fastest check:**
+1. On the device, run in an elevated prompt: `dsregcmd /status`
+2. In the Intune admin center go to: Device → **Hardware** → scroll to **TPM version** — blank or unknown means attestation is incomplete.
+3. Force a sync on the device: Settings → Accounts → Access work or school → Info → **Sync**
+4. Wait 15 minutes and re-check compliance status.
+
+#### Cause 2 — BitLocker Is Suspended (Protectors Off), Not Disabled
+
+Suspend is used automatically during BIOS/firmware updates or can be triggered manually by support staff. The drive remains encrypted but protection is paused — HAS reports this state as non-compliant.
+
+**Fastest check:**
+```powershell
+manage-bde -status C:
+```
+Look for **Protection Status**. If it shows `Protection Off` or `Suspended`, resume with:
+```powershell
+manage-bde -resume C:
+```
+Then trigger an Intune sync and re-check after 15 minutes.
+
+#### Cause 3 — TPM Present But Not Initialised by Windows
+
+The TPM chip exists in firmware but Windows has not taken ownership — common on devices reimaged without clearing the TPM first, or where a legacy GPO blocked TPM auto-provisioning.
+
+**Fastest check:**
+1. Run `tpm.msc` on the device.
+2. Status must read **"The TPM is ready for use"**.
+3. If it shows "The TPM is not ready for use" or "Compatible TPM cannot be found":
+   - In `tpm.msc`: Actions → **Clear TPM** (requires reboot)
+   - Or in elevated PowerShell: `Initialize-Tpm`
+4. After reboot, BitLocker will re-key, HAS will re-attest, and Intune will update compliance status on the next sync cycle.
 
 ---
 
