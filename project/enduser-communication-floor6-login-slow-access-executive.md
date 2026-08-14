@@ -1,0 +1,1 @@
+Floor 6 users reported slow logins after a Friday rollout of a new document-management app. The likely cause is that the app is blocking or delaying login or using resources during profile load; other ranked causes to confirm are Group Policy, network or authentication timing, disk space, profile corruption, and certificate issues. If the issue returns, contact the Service Desk.
